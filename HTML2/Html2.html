@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Customer Survey Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #02a1d6;
+        }
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="date"],
+        input[type="email"],
+        input[type="tel"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #f8f8f8;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Survey Form</h2>
+        <form id="surveyForm">
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" required><br>
+
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" required><br>
+
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" required><br>
+
+            <label for="country">Country:</label>
+            <select id="country" required>
+                <option value="USA">USA</option>
+                <option value="Canada">Canada</option>
+                <option value="UK">UK</option>
+                <option value="India">India</option>
+            </select><br>
+
+            <label for="gender">Gender:</label><br>
+            <input type="radio" name="gender" value="Male" required> Male
+            <input type="radio" name="gender" value="Female" required> Female<br>
+
+            <label for="profession">Profession:</label>
+            <input type="text" id="profession" required><br>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" required><br>
+
+            <label for="mobile">Mobile Number:</label>
+            <input type="tel" id="mobile" required><br>
+
+            <label for="firstTime">Is this your first time using our products and service?</label><br>
+            <input type="radio" name="firstTime" value="Yes" required> Yes
+            <input type="radio" name="firstTime" value="No" required> No<br>
+
+            <label for="suggestion">Would you suggest to your friends and colleagues?</label><br>
+            <input type="radio" name="suggestion" value="Yes" required> Yes
+            <input type="radio" name="suggestion" value="No" required> No<br>
+
+            <label for="satisfaction">How satisfied are you with our company overall?</label><br>
+            <input type="radio" name="satisfaction" value="Satisfied" required> Satisfied
+            <input type="radio" name="satisfaction" value="Undecided" required> Undecided
+            <input type="radio" name="satisfaction" value="Unsatisfied" required> Unsatisfied<br>
+
+            <label for="suggestionsBox">Do you have suggestions to improve our service?</label>
+            <textarea id="suggestionsBox"></textarea><br>
+
+            <button type="button" onclick="submitForm()">Submit</button>
+            <button type="button" onclick="resetForm()">Reset</button>
+        </form>
+    </div>
+
+    <script>
+        function submitForm() {
+            const form = document.getElementById('surveyForm');
+            if (form.checkValidity()) {
+                const selectedValues = {
+                    'First Name': document.getElementById('firstName').value,
+                    'Last Name': document.getElementById('lastName').value,
+                    'Date of Birth': document.getElementById('dob').value,
+                    'Country': document.getElementById('country').value,
+                    'Gender': document.querySelector('input[name="gender"]:checked').value,
+                    'Profession': document.getElementById('profession').value,
+                    'Email': document.getElementById('email').value,
+                    'Mobile Number': document.getElementById('mobile').value,
+                    'Is this your first time using our products & service?': document.querySelector('input[name="firstTime"]:checked').value,
+                    'Would you suggest to your friends and colleagues?': document.querySelector('input[name="suggestion"]:checked').value,
+                    'How satisfied are you with our company overall?': document.querySelector('input[name="satisfaction"]:checked').value,
+                    'Suggestions to improve our service': document.getElementById('suggestionsBox').value,
+                };
+                
+                let popupContent = '<h2>Survey Responses</h2>';
+                for (const field in selectedValues) {
+                    popupContent += `<p><strong>${field}:</strong> ${selectedValues[field]}</p>`;
+                }
+
+                const popup = window.open('', 'Survey Responses', 'width=400,height=400');
+                popup.document.write(popupContent);
+
+                form.reset();
+            } else {
+                alert('Please fill out all required fields.');
+            }
+        }
+
+        function resetForm() {
+            const form = document.getElementById('surveyForm');
+            form.reset();
+        }
+    </script>
+</body>
+</html>
